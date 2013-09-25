@@ -1,6 +1,8 @@
 Molar
 ============
 
+Moip with Laravel
+
 ## Setup
 
 In the `require` key of `composer.json` file add the following
@@ -19,6 +21,5 @@ In your `config/app.php` add `'Drecon\Molar\MolarServiceProvider'` to the end of
         'Illuminate\Auth\AuthServiceProvider',
         ...
         'Drecon\Molar\MolarServiceProvider',
-
     ),
 
