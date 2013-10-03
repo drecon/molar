@@ -3,6 +3,7 @@
 use Illuminate\Support\ServiceProvider;
 use Drecon\Molar\Commands\SetUpCommand;
 use Drecon\Molar\Commands\ViewsCommand;
+use Drecon\Molar\Commands\ControllerCommand;
 
 class MolarServiceProvider extends ServiceProvider {
 
@@ -45,6 +46,9 @@ class MolarServiceProvider extends ServiceProvider {
 
 		$this->registerViews();
 		$this->commands('commands.molar.views');
+
+		$this->registerController();
+		$this->commands('commands.molar.controller');
 	}
 
 	protected function registerSetUp()
@@ -60,6 +64,14 @@ class MolarServiceProvider extends ServiceProvider {
 		$this->app['commands.molar.views'] = $this->app->share(function($app)
 	    {
 	        return new ViewsCommand;
+	    });
+	}
+
+	protected function registerController()
+	{
+		$this->app['commands.molar.controller'] = $this->app->share(function($app)
+	    {
+	        return new ControllerCommand;
 	    });
 	}
 

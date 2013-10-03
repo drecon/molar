@@ -4,21 +4,21 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class ViewsCommand extends Command {
+class ControllerCommand extends Command {
 
 	/**
 	 * The console command name.
 	 *
 	 * @var string
 	 */
-	protected $name = 'molar:views';
+	protected $name = 'molar:controller';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Create molar views';
+	protected $description = 'Create molar controller';
 
 	/**
 	 * Create a new command instance.
@@ -37,30 +37,16 @@ class ViewsCommand extends Command {
 	 */
 	public function fire()
 	{
-		//copy view file
-		$filePath = dirname(__DIR__).'/Files/Views/plans.blade.php';
-		$targetPath = app_path().'/views/molar/plans.blade.php';
+		//copy controller file
+		$filePath = dirname(__DIR__).'/Files/Controllers/MolarController.php';
+		$targetPath = app_path().'/controllers/MolarController.php';
 
-		if($this->createDirectory(app_path().'/views/molar')){
-
-			if($this->copyFile($filePath,$targetPath)){
-				$this->info("File created: $targetPath");
-			}
-			else{
-				$this->error("Could not create file: $targetPath");
-			}
+		if($this->copyFile($filePath,$targetPath)){
+			$this->info("File created: $targetPath");
 		}
 		else{
 			$this->error("Could not create file: $targetPath");
 		}
-	}
-
-	protected function createDirectory($path)
-	{
-		if(! \File::exists($path))
-			return \File::makeDirectory($path);
-
-		return false;
 	}
 
 	protected function copyFile($file,$target)

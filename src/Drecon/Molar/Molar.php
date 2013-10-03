@@ -9,7 +9,7 @@ class Molar {
 		$header[] = "Accept: application/json";
 		$header[] = "Content-Type: application/json";
         $header[] = "Authorization: Basic " . base64_encode($credentials);
-        //inicit curl
+        //init curl
         $ch = curl_init();
         //set options
         $options = array(
