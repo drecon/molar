@@ -66,7 +66,7 @@ class MolarController extends BaseController {
         //close curl
         curl_close($ch);
         //return json with result;
-        return $response;
+        return View::make('molar.main')->with('moip_return',$response);
 	}
 
 }
