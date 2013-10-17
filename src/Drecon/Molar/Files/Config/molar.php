@@ -3,6 +3,24 @@
 return array(
 	/*
 	|------------------------------
+	| SANDBOX TOKEN
+	|------------------------------
+	|
+	| Here go your moip token.
+	|
+	*/
+	'token' => 'YourTokenHere!',
+	/*
+	|------------------------------
+	| SANDBOX KEY
+	|------------------------------
+	|
+	| Here go your moip key.
+	|
+	*/
+	'key' => 'YourKeyHere!',
+	/*
+	|------------------------------
 	| PRODUCTION TOKEN
 	|------------------------------
 	|

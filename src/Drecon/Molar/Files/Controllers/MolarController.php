@@ -66,7 +66,95 @@ class MolarController extends BaseController {
         //close curl
         curl_close($ch);
         //return json with result;
-        return View::make('molar.main')->with('moip_return',$response);
+        return View::make('molar.main_plans')->with('moip_return_plans',$response);
+	}
+
+	public function plans(){
+		$url = 'https://sandbox.moip.com.br/assinaturas/v1/plans';
+		//set credentials and headers
+		$credentials = \Config::get('molar.productionToken') . ':' . \Config::get('molar.productionKey');
+		$header[] = "Accept: application/json";
+		$header[] = "Content-Type: application/json";
+        $header[] = "Authorization: Basic " . base64_encode($credentials);
+        //init curl
+        $ch = curl_init();
+        //set options
+        $options = array(
+        	CURLOPT_URL => $url,
+            CURLOPT_HTTPHEADER => $header,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_USERPWD => $credentials,
+            CURLINFO_HEADER_OUT => true
+        );
+
+        curl_setopt_array($ch, $options);
+        //execute curl
+        $response = curl_exec($ch);
+        //close curl
+        curl_close($ch);
+        //return json with a list of plans;
+        return $response;
+	}
+
+	public function checkout()
+	{
+        $url = 'https://desenvolvedor.moip.com.br/sandbox/ws/alpha/EnviarInstrucao/Unica';
+		//set credentials and headers
+		$credentials = \Config::get('molar.token') . ':' . \Config::get('molar.key');
+		$header[] = "Accept: text/xml";
+		$header[] = "Content-Type: text/xml";
+        $header[] = "Authorization: Basic " . base64_encode($credentials);
+        //set post data
+        $data = "
+        	<EnviarInstrucao>
+			    <InstrucaoUnica TipoValidacao='Transparente'>
+			        <Razao>".  Input::get('reason') ."</Razao>
+			        <Valores>
+			            <Valor moeda='BRL'>". Input::get('price') ."</Valor>
+			        </Valores>
+			        <IdProprio>". Input::get('id') ."</IdProprio>
+			        <Pagador>
+			           <Nome>". Input::get('fullname') ."</Nome>
+			           <Email>". Input::get('email') ."</Email>
+			           <IdPagador>". Input::get('id') ."</IdPagador>
+			           <EnderecoCobranca>
+			               <Logradouro>". Input::get('street') ."</Logradouro>
+			               <Numero>". Input::get('number') ."</Numero>
+			               <Complemento>". Input::get('complement') ."</Complemento>
+			               <Bairro>". Input::get('district') ."</Bairro>
+			               <Cidade>". Input::get('city') ."</Cidade>
+			               <Estado>". Input::get('state') ."</Estado>
+			               <Pais>BRA</Pais>
+			               <CEP>". Input::get('zipcode') ."</CEP>
+			               <TelefoneFixo>(". Input::get('phone_area_code') .") ". Input::get('phone_number') ."</TelefoneFixo>
+			           </EnderecoCobranca>
+			       </Pagador>
+			    </InstrucaoUnica>
+			</EnviarInstrucao>
+        ";
+		//init curl
+        $ch = curl_init();
+        //set options
+        $options = array(
+        	CURLOPT_URL => $url,
+            CURLOPT_HTTPHEADER => $header,
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_USERPWD => $credentials,
+            CURLINFO_HEADER_OUT => true,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $data
+        );
+
+        curl_setopt_array($ch, $options);
+        //execute curl
+        $response = curl_exec($ch);
+        //close curl
+        curl_close($ch);
+        //return json with result;
+        $xml = simplexml_load_string($response);
+        return View::make('moip.main_checkout')->with('moip_return_checkout',json_encode($xml));
 	}
 
 }

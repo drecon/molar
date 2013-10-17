@@ -22,11 +22,6 @@ class MolarServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('drecon/molar');
-		$this->app->booting(function()
-		{
-			$loader = \Illuminate\Foundation\AliasLoader::getInstance();
-			$loader->alias('Molar', 'Drecon\Molar\Facades\Molar');
-		});
 	}
 
 	/**

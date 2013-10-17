@@ -73,6 +73,36 @@ class ViewsCommand extends Command {
 		else{
 			$this->error("Could not create file: $target3Path");
 		}
+
+		$file4Path = dirname(__DIR__).'/Files/Views/main_checkout.blade.php';
+		$target4Path = app_path().'/views/molar/main_checkout.blade.php';
+
+		if($this->copyFile($file4Path,$target4Path)){
+			$this->info("File created: $target4Path");
+		}
+		else{
+			$this->error("Could not create file: $target4Path");
+		}
+
+		$file5Path = dirname(__DIR__).'/Files/Views/checkout.blade.php';
+		$target5Path = app_path().'/views/molar/checkout.blade.php';
+
+		if($this->copyFile($file5Path,$target5Path)){
+			$this->info("File created: $target5Path");
+		}
+		else{
+			$this->error("Could not create file: $target5Path");
+		}
+
+		$file6Path = dirname(__DIR__).'/Files/Views/infos.blade.php';
+		$target6Path = app_path().'/views/molar/infos.blade.php';
+
+		if($this->copyFile($file6Path,$target6Path)){
+			$this->info("File created: $target6Path");
+		}
+		else{
+			$this->error("Could not create file: $target6Path");
+		}
 	}
 
 	protected function createDirectory($path)
