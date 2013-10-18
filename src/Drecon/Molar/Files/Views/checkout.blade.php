@@ -2,8 +2,8 @@
 
 <div style="width:400px;visibility:hidden" id="result" data-payment="bank-bill"></div>
 
-@if(isset($moip_return))
-	<?php $return = json_decode($moip_return,true) ?>
+@if(isset($moip_return_checkout))
+	<?php $return = json_decode($moip_return_checkout,true) ?>
 	@if($return["Resposta"]["Status"] == "Sucesso")
 		<div id="MoipWidget"
 	        data-token="{{ $return['Resposta']['Token'] }}"
@@ -98,8 +98,16 @@
 		</div>
 	@else
 		<div class="alert alert-danger">
-			<p><strong>Erro:</strong></p>
-			<p>{{ $return["Resposta"]["Erro"] }}</p>
+			<p><strong>Erros:</strong></p>
+			<ul>
+			@foreach($return['Resposta']['Erro'] as $e)
+				<li>
+					{{ $e }}
+				</li>
+			@endforeach
+			</ul>
+			<br><br>
+			<a href="{{ route('infos') }}" class="btn btn-danger">Voltar</a>
 		</div>
 	@endif
 @endif

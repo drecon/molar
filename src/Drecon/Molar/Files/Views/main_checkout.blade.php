@@ -1,5 +1,5 @@
 @if(isset($moip_return_checkout))
-	@include('moip.checkout')
+	@include('molar.checkout')
 @else
-	@include('moip.infos')
+	@include('molar.infos')
 @endif

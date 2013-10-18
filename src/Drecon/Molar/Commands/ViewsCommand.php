@@ -54,8 +54,8 @@ class ViewsCommand extends Command {
 			$this->error("Could not create file: $targetPath");
 		}
 
-		$file2Path = dirname(__DIR__).'/Files/Views/moip_return.blade.php';
-		$target2Path = app_path().'/views/molar/moip_return.blade.php';
+		$file2Path = dirname(__DIR__).'/Files/Views/moip_return_plans.blade.php';
+		$target2Path = app_path().'/views/molar/moip_return_plans.blade.php';
 
 		if($this->copyFile($file2Path,$target2Path)){
 			$this->info("File created: $target2Path");
@@ -64,8 +64,8 @@ class ViewsCommand extends Command {
 			$this->error("Could not create file: $target2Path");
 		}
 
-		$file3Path = dirname(__DIR__).'/Files/Views/main.blade.php';
-		$target3Path = app_path().'/views/molar/main.blade.php';
+		$file3Path = dirname(__DIR__).'/Files/Views/main_plans.blade.php';
+		$target3Path = app_path().'/views/molar/main_plans.blade.php';
 
 		if($this->copyFile($file3Path,$target3Path)){
 			$this->info("File created: $target3Path");

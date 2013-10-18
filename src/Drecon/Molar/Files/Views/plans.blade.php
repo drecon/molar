@@ -1,8 +1,9 @@
 @if(isset($plans))
+	<?php $json_plans = json_decode($plans,true); ?>
 	@if(!isset($_GET['code']))
 		<!-- show active plans -->
 		<ul class="list-unstyled list-inline">
-		@foreach(json_decode($plans,true)['plans'] as $p)
+		@foreach($json_plans['plans'] as $p)
 			@if($p['status'] == 'ACTIVE')
 				<li>
 					<div class="panel panel-default">
@@ -15,7 +16,7 @@
 								<dd>R$ {{ $p['amount']/100 }}</dd>
 							</dl>
 					  	</div>
-					  	<div class="panel-footer"><a href="/plans?code={{ $p['code'] }}" class="btn btn-success">Assinar</a></div>
+					  	<div class="panel-footer"><a href="{{ route('plans') }}?code={{ $p['code'] }}" class="btn btn-success">Assinar</a></div>
 					</div>
 				</li>
 			@endif
@@ -24,9 +25,9 @@
 	@else
 		<!-- show selected plan -->
 		<div class="alert alert-info" style="width:400px">
-			@foreach(json_decode($plans,true)['plans'] as $p)
+			@foreach($json_plans['plans'] as $p)
 				@if($p['code'] == $_GET['code'])
-					Você selecionou o plano <strong>{{ $p['name'] }}</strong>, no valor de <strong>R$ {{ $p['amount']/100 }}</strong>. Para modificar o plano selecionado, por favor <a href="/plans" class="alert-link">clique aqui</a>.
+					Você selecionou o plano <strong>{{ $p['name'] }}</strong>, no valor de <strong>R$ {{ $p['amount']/100 }}</strong>. Para modificar o plano selecionado, por favor <a href="{{ route('plans') }}" class="alert-link">clique aqui</a>.
 				@endif
 			@endforeach
 		</div>

@@ -94,7 +94,7 @@ class MolarController extends BaseController {
         //close curl
         curl_close($ch);
         //return json with a list of plans;
-        return $response;
+        return View::make('molar.main_plans')->with('plans', $response);
 	}
 
 	public function checkout()
@@ -154,7 +154,7 @@ class MolarController extends BaseController {
         curl_close($ch);
         //return json with result;
         $xml = simplexml_load_string($response);
-        return View::make('moip.main_checkout')->with('moip_return_checkout',json_encode($xml));
+        return View::make('molar.main_checkout')->with('moip_return_checkout',json_encode($xml));
 	}
 
 }

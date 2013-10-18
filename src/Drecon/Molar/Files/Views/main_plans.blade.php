@@ -1,2 +1,2 @@
 @include('molar.plans')
-@include('molar.moip_return')
+@include('molar.moip_return_plans')
